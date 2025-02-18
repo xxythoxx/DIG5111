@@ -7,7 +7,7 @@ filename = 'sinewave_A.wav';
 y = sig';
 ts = 1/fs;
 t = 0:1/fs:(0.1-ts);
-x= t; 
+x = t; 
 plot(x, y, '--'), hold on;
 % we set up 2 straight vectors, to demonstrate the transfer function.
 % x holds the original signal, y will hold the new clipped signal.
@@ -33,7 +33,7 @@ audiowrite ("clip_sineA.wav",y,fs)
 clip2 = sig';
 for i = 1:xLength
 if (y(i) < -0.1)
-clip2(i) = -0.1;
+clip2(i) = -0.8;
 end
 end
 plot(clip2), axis([1, xLength, -1, 1]); grid on; hold off;
