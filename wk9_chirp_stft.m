@@ -13,6 +13,9 @@ Theta=2*pi*(100+200*t+500*t.*t); %as time changes, frequency changes
 %3/2
 % theta = 2*pi*(100+________________________
 
+framesize = 512;
+overlap = 1024;
+
 chirpsig=A*sin(Theta); %makes the chirp signal
 audiowrite('mychirp1.wav',chirpsig,Fs); %writes chirp to an audio file,
 %taking calculations from chirpsig and applying them with the sampling
@@ -21,3 +24,5 @@ audiowrite('mychirp1.wav',chirpsig,Fs); %writes chirp to an audio file,
 
 %formatting for using spectrogram S = spectrogram(x,window,noverlap,nfft,fs) 
 %e.g spectrogram(chirpsig,128,120,128,10000); would take file chirpsig, 
+
+spectrogram(chirpsig,hann(framesize),256, framesize, Fs, 'yAxis');
