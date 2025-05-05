@@ -32,10 +32,10 @@ if Fs ~= Fs2 %if sampling rates are not identical
         'cancel'); %opens a UI menu where they choose which file to resample
     switch choice %adds a switch choice to allow to resample at other 
      % audio files frequencies
-        case 1 %, resamples audio1 to 2nd audio files sampling freq
+       case 1
            audio1 = resample (audio1, Fs, Fs2);
            Fs2 = Fs;
-        case 2 %resamples audio2 to 1st audio files sampling freq.
+       case 2
            audio2 = resample (audio2, Fs2, Fs);
            Fs = Fs2;
        otherwise
@@ -49,9 +49,9 @@ else
     fMax = Fs2/2;
 end
 
-dft = fft(audio1); %discrete FT is equal to fft of 1st audio file
-mag = abs(dft); % magnitude is absolute value taken from dft
-n = length(audio1);     % length of 1st audio signal
+dft = fft(audio1);
+mag = abs(dft);
+n = length(audio1);     % Length of the first audio signal
 f = (0:n-1)*(Fs/n);     % frequency range for spectral analysis
 
 dft2 = fft(audio2);
@@ -72,13 +72,13 @@ spec_mag2 = abs(spec2);
 spec_freq2 = f2(1:spec_length2);
 
 figure;
-subplot(2,1,1);  % create  subplot for 1st signal
-%plot(f, abs(fft(audio1)));  plot FFT of the first signal
+subplot(2,1,1);  % Create a subplot for the first signal
+%plot(f, abs(fft(audio1)));  % Plot the FFT of the first signal
 plot (spec_freq, spec_mag);
 
 xlabel('Frequency (Hz)');
 ylabel('Magnitude');
-title('Amplitude Spectrum of the 1st Audio File');
+title('Amplitude Spectrum of the First Audio File');
 
 ax = gca;
 ax.XAxis.Exponent = 0;  % Turn off scientific notation
@@ -88,12 +88,12 @@ xtickformat('%.0f');    % Set the x-axis ticks to be in normal format
 
 % plot 2nd audio signals amplitude spectrum
 subplot(2,1,2);  % creates subplot for  second signal
-%plot(f2, abs(fft(audio2))); Plot the FFT of the second signal
+%plot(f2, abs(fft(audio2)));  % Plot the FFT of the second signal
 
 plot (spec_freq2, spec_mag2);
 xlabel('Frequency (Hz)');
 ylabel('Magnitude');
-title('Amplitude Spectrum of the 2nd Audio File');
+title('Amplitude Spectrum of the Second Audio File');
 
 ax2 = gca;
 ax2.XAxis.Exponent = 0;  % Turn off scientific notation

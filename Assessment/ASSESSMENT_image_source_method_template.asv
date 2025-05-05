@@ -20,7 +20,7 @@ room_width  = 5.13;     % Width in y-direction
 room_height = 3.73;     % Height in z-direction
 
 % Sound source and receiver (listener) positions [x, y, z] in meters
-src_pos = [2, 4, 2];   % Source position
+src_pos = [2, 4, 1.5];   % Source position
 rec_pos = [5.7, 2.075, 1.6];   % Receiver position
 
 % Sampling parameters and speed of sound
@@ -152,6 +152,14 @@ for ch = 1:num_channels
     audio_reverberated(:, ch) = conv(audio(:, ch), h);
 end
 
+%normalises impulse response/convolution 
+h_normalized = h / max(abs(h));
+
+% saves the IR as a wav file 
+impulse_filename = 'impulse_response.wav';
+audiowrite(impulse_filename, h_normalized, fs);
+disp(['impulse response saved as ', impulse_filename]);
+
 %normalises audio to make sure there is no clipping 
 audio_reverberated = audio_reverberated/ max(abs(audio_reverberated(:)));
 
@@ -175,7 +183,8 @@ audiowrite(impulse_filename, h_normalized, fs);
 disp(['impulse response saved as ', impulse_filename]);
  
 %
-% Students can expand this section to include additional processing, such as    
-% using frequency-dependent absorption, orimplementing higher-order reflections.
+% Students can expand this section to include additional processing, such as
+% normalizing the impulse response, using frequency-dependent absorption, or
+% implementing higher-order reflections.
 
 %% End of Script
