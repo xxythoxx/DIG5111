@@ -111,3 +111,5 @@ ax2 = gca;
 ax2.XAxis.Exponent = 0;  % Turn off scientific notation
 xtickformat('%.0f');     % same as previous
 
+
+clear 
