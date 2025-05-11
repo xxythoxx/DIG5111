@@ -48,6 +48,7 @@ if Fs>=Fs2  %max plotting frequency
 else 
     fMax = Fs2/2;
 end
+fMin = 0;
 
 dft = fft(audio1); %discrete FT is equal to fft of 1st audio file
 mag = abs(dft); % magnitude is absolute value taken from dft
@@ -55,7 +56,7 @@ n = length(audio1);     % length of 1st audio signal
 f = (0:n-1)*(Fs/n);     % frequency range for spectral analysis
 
 dft2 = fft(audio2);
-mag = abs(dft2)
+mag = abs(dft2);
 n2 = length(audio2);    %length of the 2nd audio signal
 f2 = (0:n2-1)*(Fs2/n2);  % uses Fs)
 
@@ -73,28 +74,40 @@ spec_freq2 = f2(1:spec_length2);
 
 figure;
 subplot(2,1,1);  % create  subplot for 1st signal
-%plot(f, abs(fft(audio1)));  plot FFT of the first signal
-plot (spec_freq, spec_mag);
+semilogx(f, abs(fft(audio1))); % plot FFT of the first signal
+semilogx(spec_freq, spec_mag);
 
 xlabel('Frequency (Hz)');
 ylabel('Magnitude');
 title('Amplitude Spectrum of the 1st Audio File');
 
+% set x-axis limits to log scale
+xlim([fMin, fMax]);
+
+% Manually set the log scale ticks
+set(gca, 'XTick', [20 80 100 1000 2000 4000 8000 10000 14000 20000]); 
+
 ax = gca;
 ax.XAxis.Exponent = 0;  % Turn off scientific notation
 xtickformat('%.0f');    % Set the x-axis ticks to be in normal format 
-% instead of logarithmic (keeps showing up as powers instead of numeric Hz
+% instead of powers (keeps showing up as powers instead of numeric Hz
 % values)
 
 % plot 2nd audio signals amplitude spectrum
 subplot(2,1,2);  % creates subplot for  second signal
 %plot(f2, abs(fft(audio2))); Plot the FFT of the second signal
+semilogx (spec_freq2, spec_mag2);
 
-plot (spec_freq2, spec_mag2);
 xlabel('Frequency (Hz)');
 ylabel('Magnitude');
 title('Amplitude Spectrum of the 2nd Audio File');
+%same as previous, setting x limits
+xlim([fMin, fMax]);
+
+set(gca, 'XTick', [20 50 100 1000 2000 4000 8000 10000 14000 20000]); 
+
 
 ax2 = gca;
 ax2.XAxis.Exponent = 0;  % Turn off scientific notation
 xtickformat('%.0f');     % same as previous
+

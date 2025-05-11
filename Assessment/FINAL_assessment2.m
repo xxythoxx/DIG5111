@@ -19,7 +19,7 @@ n = length(unfiltered);
 f = (0:n-1)*(Fs/n);  % Frequency axis
 Y = fft(unfiltered); % FFT of the audio signal
 subplot(2,1,1);
-plot(f(1:floor(n/2)), abs(Y(1:floor(n/2))));
+semilogx(f(1:floor(n/2)), abs(Y(1:floor(n/2))));
 title('Frequency Spectrum (0 - 20 kHz)');
 xlabel('Frequency (Hz)');
 ylabel('Magnitude');
@@ -86,3 +86,4 @@ disp(['Filtered audio saved to: ', outputPath]);
 %  plays filtered audio
 sound(filteredAudio, Fs);
 disp('Playing filtered audio...');
+
